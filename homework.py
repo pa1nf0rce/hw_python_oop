@@ -92,7 +92,7 @@ class Running(Training):
         return (
             (coeff_calorie_1 * self.get_mean_speed() - coeff_calorie_2)
             * self.weight / self.M_IN_KM * times_in_minutes
-            )
+               )
 
 
 class SportsWalking(Training):
@@ -122,7 +122,7 @@ class SportsWalking(Training):
             (coeff_calorie_1 * self.weight
              + (self.get_mean_speed() ** 2 // self.height)
              * coeff_calorie_2 * self.weight) * time_in_minutes
-                )
+               )
 
 
 class Swimming(Training):
@@ -152,7 +152,7 @@ class Swimming(Training):
         return (
             self.length_pool * self.count_pool
             / self.M_IN_KM / self.duration
-                )
+               )
 
     def get_spent_calories(self) -> float:
         """Формула расчета калорий
@@ -164,7 +164,7 @@ class Swimming(Training):
         return (
             (self.get_mean_speed() + coeff_calorie_1)
             * coeff_calorie_2 * self.weight
-                )
+               )
 
 
 def read_package(workout_type: str, data: list) -> Training:
