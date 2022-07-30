@@ -100,7 +100,7 @@ class SportsWalking(Training):
 
     height: float
 
-    def __init__(self, 
+    def __init__(self,
                  action: int,
                  duration: float,
                  weight: float,
@@ -120,9 +120,9 @@ class SportsWalking(Training):
         coeff_calorie_2: float = 0.029
         return (
             (coeff_calorie_1 * self.weight
-            + (self.get_mean_speed() ** 2 // self.height)
-            * coeff_calorie_2 * self.weight) * time_in_minutes
-            )
+             + (self.get_mean_speed() ** 2 // self.height)
+             * coeff_calorie_2 * self.weight) * time_in_minutes
+             )
 
 
 class Swimming(Training):
