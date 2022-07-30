@@ -90,8 +90,8 @@ class Running(Training):
         """
         return (
             (self.COEFF_CALORIE_1 * self.get_mean_speed()
-             - self.COEFF_CALORIE_2)
-             * self.weight / self.M_IN_KM * self.duration * self.M_IN_H)
+             - self.COEFF_CALORIE_2) * self.weight 
+             / self.M_IN_KM * self.duration * self.M_IN_H)
 
 
 class SportsWalking(Training):
@@ -121,8 +121,8 @@ class SportsWalking(Training):
         return (
             (self.COEFF_CALORIE_1 * self.weight
              + (self.get_mean_speed() ** 2 // self.height)
-             * self.COEFF_CALORIE_2 *
-             self.weight) * self.duration * self.M_IN_H)
+             * self.COEFF_CALORIE_2 
+             * self.weight) * self.duration * self.M_IN_H)
 
 
 class Swimming(Training):
@@ -171,15 +171,14 @@ def read_package(workout_type: str, data: list) -> Training:
     try:
 
         training_type: Dict[str, Type[Training]] = {
-                                                'SWM': Swimming,
-                                                'RUN': Running,
-                                                'WLK': SportsWalking,
+            'SWM': Swimming,
+            'RUN': Running,
+            'WLK': SportsWalking,
         }
         return training_type[workout_type](*data)
 
-    except Exception as e:
-
-        raise TypeError from e
+    except Exception:
+        raise TypeError('Неизвестный тип тренировки')
 
 
 def main(training: Training) -> None:
