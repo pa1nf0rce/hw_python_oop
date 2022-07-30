@@ -1,5 +1,5 @@
 from dataclasses import dataclass, asdict
-from typing import Tuple, Dict, List, Type, TypedDict
+from typing import Tuple, Dict, List, Type
 
 
 @dataclass
@@ -11,11 +11,11 @@ class InfoMessage:
     distance: float
     speed: float
     calories: float
-    MESSAGE: str = ( 'Тип тренировки: {training_type}; '
-                'Длительность: {duration:.3f} ч.; '
-                'Дистанция: {distance:.3f} км; '
-                'Ср. скорость: {speed:.3f} км/ч; '
-                'Потрачено ккал: {calories:.3f}.')
+    MESSAGE: str = ('Тип тренировки: {training_type}; '
+                    'Длительность: {duration:.3f} ч.; '
+                    'Дистанция: {distance:.3f} км; '
+                    'Ср. скорость: {speed:.3f} км/ч; '
+                    'Потрачено ккал: {calories:.3f}.')
 
     def show_training_info(self):
         """Создание объекта сообщения о результатах тренировки."""
@@ -45,7 +45,7 @@ class Training:
                  weight: float) -> None:
 
         self.action: int = action
-        self.duration: float= duration
+        self.duration: float = duration
         self.weight: float = weight
 
     def get_distance(self) -> float:
@@ -58,7 +58,8 @@ class Training:
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        raise NotImplementedError(f'Метод в {type(self).__name__} должен быть переопредлен')
+        raise NotImplementedError(
+            f'Метод в {type(self).__name__} должен быть переопредлен')
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
@@ -88,8 +89,9 @@ class Running(Training):
         M_IN_KM * время_тренировки_в_минутах.
         """
         return (
-            (self.COEFF_CALORIE_1 * self.get_mean_speed() - self.COEFF_CALORIE_2)
-            * self.weight / self.M_IN_KM * self.duration * self.M_IN_H)
+            (self.COEFF_CALORIE_1 * self.get_mean_speed() 
+            - self.COEFF_CALORIE_2) * self.weight 
+            / self.M_IN_KM * self.duration * self.M_IN_H)
 
 
 class SportsWalking(Training):
@@ -107,7 +109,7 @@ class SportsWalking(Training):
                  height: float,) -> None:
 
         super().__init__(action, duration, weight)
-        self.height = height 
+        self.height = height
 
     def get_spent_calories(self) -> float:
         """Формула расчета калорий
@@ -119,7 +121,8 @@ class SportsWalking(Training):
         return (
             (self.COEFF_CALORIE_1 * self.weight
              + (self.get_mean_speed() ** 2 // self.height)
-             * self.COEFF_CALORIE_2 * self.weight) * self.duration * self.M_IN_H)
+             * self.COEFF_CALORIE_2 * self.weight)
+             * self.duration * self.M_IN_H)
 
 
 class Swimming(Training):
@@ -165,15 +168,17 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-
     try:
+
         training_type: Dict[str, Type[Training]] = {
         'SWM': Swimming,
         'RUN': Running,
         'WLK': SportsWalking
         }
         return training_type[workout_type](*data)
+
     except Exception as e:
+
         raise TypeError from e
 
 
