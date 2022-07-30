@@ -89,9 +89,8 @@ class Running(Training):
         M_IN_KM * время_тренировки_в_минутах.
         """
         return (
-            (self.COEFF_CALORIE_1 * self.get_mean_speed()
-            - self.COEFF_CALORIE_2) * self.weight
-            / self.M_IN_KM * self.duration * self.M_IN_H)
+            (self.COEFF_CALORIE_1 * self.get_mean_speed() - self.COEFF_CALORIE_2)
+             * self.weight / self.M_IN_KM * self.duration * self.M_IN_H)
 
 
 class SportsWalking(Training):
@@ -120,9 +119,8 @@ class SportsWalking(Training):
 
         return (
             (self.COEFF_CALORIE_1 * self.weight
-            + (self.get_mean_speed() ** 2 // self.height)
-            * self.COEFF_CALORIE_2 * self.weight)
-            * self.duration * self.M_IN_H)
+             + (self.get_mean_speed() ** 2 // self.height) * self.COEFF_CALORIE_2
+             * self.weight) * self.duration * self.M_IN_H)
 
 
 class Swimming(Training):
@@ -173,7 +171,8 @@ def read_package(workout_type: str, data: list) -> Training:
         training_type: Dict[str, Type[Training]] = {
                                                 'SWM': Swimming,
                                                 'RUN': Running,
-                                                'WLK': SportsWalking}
+                                                'WLK': SportsWalking,
+        }
         return training_type[workout_type](*data)
 
     except Exception as e:
