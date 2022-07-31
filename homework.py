@@ -39,7 +39,7 @@ class Training:
 
         self.action = action  # count of completed actions
         self.duration = duration  # hours
-        self.weight_kg = weight  # kilogram
+        self.weight = weight  # kilogram
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
@@ -159,15 +159,16 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
+    try:
 
-    training_type: Dict[str, Type[Training]] = {
-        'SWM': Swimming,
-        'RUN': Running,
-        'WLK': SportsWalking,
-    }
-    if isinstance(training_type, Training):
+        training_type: Dict[str, Type[Training]] = {
+            'SWM': Swimming,
+            'RUN': Running,
+            'WLK': SportsWalking,
+        }
         return training_type[workout_type](*data)
-    else:
+
+    except:
         raise ValueError('Неизвестный тип тренировки')
 
 
