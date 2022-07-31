@@ -161,9 +161,9 @@ def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
 
     training_type: Dict[str, Type[Training]] = {
-            'SWM': Swimming,
-            'RUN': Running,
-            'WLK': SportsWalking,
+        'SWM': Swimming,
+        'RUN': Running,
+        'WLK': SportsWalking,
     }
     if isinstance(training_type, Training):
         return training_type[workout_type](*data)
