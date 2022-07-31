@@ -1,4 +1,5 @@
 from dataclasses import dataclass, asdict
+from trace import Trace
 from typing import Tuple, Dict, List, Type
 
 
@@ -159,17 +160,16 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    try:
 
-        training_type: Dict[str, Type[Training]] = {
-            'SWM': Swimming,
-            'RUN': Running,
-            'WLK': SportsWalking,
-        }
+    training_type: Dict[str, Type[Training]] = {
+        'SWM': Swimming,
+        'RUN': Running,
+        'WLK': SportsWalking,
+    }
+    if workout_type in training_type:
         return training_type[workout_type](*data)
-
-    except:
-        raise ValueError('Неизвестный тип тренировки')
+    else:
+        raise ValueError(f'Неизвестный тип тренировки {workout_type}')
 
 
 def main(training: Training) -> None:
