@@ -1,5 +1,4 @@
 from dataclasses import dataclass, asdict
-from trace import Trace
 from typing import Tuple, Dict, List, Type
 
 
