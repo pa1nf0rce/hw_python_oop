@@ -17,7 +17,6 @@ class InfoMessage:
                     'Ср. скорость: {speed:.3f} км/ч; '
                     'Потрачено ккал: {calories:.3f}.')
 
-
     def get_message(self) -> str:
         """Вернуть сообщение о тренировке."""
         return self.MESSAGE.format(**asdict(self))
@@ -38,9 +37,9 @@ class Training:
                  duration: float,
                  weight: float) -> None:
 
-        self.action = action #count of completed actions
-        self.duration = duration #hours
-        self.weight_kg = weight #kilogram
+        self.action = action  # count of completed actions
+        self.duration = duration  # hours
+        self.weight_kg = weight  # kilogram
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
@@ -68,7 +67,7 @@ class Running(Training):
     """Тренировка: бег."""
     MULTIPLIER_CALORIE_1: int = 18
     SUBTRACT_CALORIE_2: int = 20
-    
+
     def __init__(self,
                  action: int,
                  duration: float,
@@ -101,7 +100,7 @@ class SportsWalking(Training):
                  height: float,) -> None:
 
         super().__init__(action, duration, weight)
-        self.height = height #meters
+        self.height = height  # meters
 
     def get_spent_calories(self) -> float:
         """Формула расчета калорий
@@ -134,8 +133,8 @@ class Swimming(Training):
                  count_pool: int,) -> None:
 
         super().__init__(action, duration, weight)
-        self.length_pool = length_pool #meters
-        self.count_pool = count_pool #count of swimming pools
+        self.length_pool = length_pool  # meters
+        self.count_pool = count_pool  # count of swimming pools
 
     def get_mean_speed(self) -> float:
         """Формула расчета ср. скорости
@@ -166,7 +165,7 @@ def read_package(workout_type: str, data: list) -> Training:
             'RUN': Running,
             'WLK': SportsWalking,
     }
-    if isinstance(training_type,Training):
+    if isinstance(training_type, Training):
         return training_type[workout_type](*data)
     else:
         raise ValueError('Неизвестный тип тренировки')
@@ -189,4 +188,3 @@ if __name__ == '__main__':
     for workout_type, data in packages:
         training = read_package(workout_type, data)
         main(training)
-        
